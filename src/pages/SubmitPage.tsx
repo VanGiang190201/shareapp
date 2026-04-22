@@ -55,7 +55,7 @@ export function SubmitPage() {
       <h1>Gửi Link Shopee</h1>
       <p className="helper-text">Người dùng hiện tại: {uid || 'Chưa nhận diện'}</p>
       <p className="info-banner">
-        Dán đúng link sản phẩm để hệ thống xử lý nhanh hơn và hạn chế lỗi xác minh.
+        Dán đúng link sản phẩm để hệ thống xử lý nhanh hơn và hạn chế lỗi xác minh. Sau đó truy cập <strong>Lịch Sử</strong> để chờ nhận link affiliate từ hệ thống.
       </p>
 
       <form className="form-grid" onSubmit={handleSubmit}>
