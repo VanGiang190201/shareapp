@@ -87,7 +87,7 @@ export function DetailPage() {
     setUploadingType(type)
     try {
       const base64 = await toBase64(selected.file)
-      const res = await uploadHistoryImage(record.requestId, base64, type)
+      const res = await uploadHistoryImage(record.requestId, base64, type, record.time)
       dispatch(setSelectedRecord({...record, image: res.url}))
       setToast({ message: 'Gửi ảnh thành công.', type: 'success' })
       removeSelectedImage(type)

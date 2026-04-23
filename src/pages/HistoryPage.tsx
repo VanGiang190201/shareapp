@@ -56,12 +56,19 @@ function formatCurrencyVnd(value: number) {
   }).format(value)
 }
 
+function getTodayDateString() {
+  const now = new Date()
+  const offset = now.getTimezoneOffset() * 60000
+  return new Date(now.getTime() - offset).toISOString().split('T')[0]
+}
+
 export function HistoryPage() {
   const { uid, hasUid } = useUid()
   const dispatch = useAppDispatch()
   const [records, setRecords] = useState<HistoryRecord[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [selectedDate, setSelectedDate] = useState(() => getTodayDateString())
   const useMockData = import.meta.env.VITE_USE_MOCK_HISTORY === 'true'
 
   const loadHistory = useCallback(async (showLoading = false) => {
@@ -86,7 +93,7 @@ export function HistoryPage() {
     }
 
     try {
-      const result = await fetchHistory(uid)
+      const result = await fetchHistory(uid, selectedDate)
       setRecords(result)
       setError('')
     } catch (requestError) {
@@ -101,7 +108,7 @@ export function HistoryPage() {
         setLoading(false)
       }
     }
-  }, [hasUid, uid, useMockData])
+  }, [hasUid, selectedDate, uid, useMockData])
 
   useEffect(() => {
     const initialLoadTimer = window.setTimeout(() => {
@@ -120,8 +127,21 @@ export function HistoryPage() {
 
   return (
     <section className="card">
+      <div className="history-header">
       <h1>Lịch Sử Xử Lý</h1>
+      <p className="helper-text">
+        Lịch Sử Ngày{' '}
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(event) => {
+            setSelectedDate(event.target.value)
+          }}
+        />
+      </p>
+      </div>
       <p className="helper-text">Tự động làm mới sau 1 phút</p>
+      
       <p className="info-banner">
         Mẹo: bấm <strong>Xem chi tiết</strong> để tải ảnh minh chứng và theo dõi hoa hồng đơn hàng.
       </p>
