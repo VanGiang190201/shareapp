@@ -208,7 +208,7 @@ export function HistoryPage() {
                       <StatusBadge status={record.status} />
                     </td>
                     <td>{formatTime(record.time)}</td>
-                    <td>{canShowCommission ? formatCurrencyVnd(estimatedCommission) : '-'}</td>
+                    <td>{canShowCommission ? formatCurrencyVnd(estimatedCommission) : 'Đang ước tính hoa hồng'}</td>
                   </tr>
                 )
               })}
