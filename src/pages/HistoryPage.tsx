@@ -178,10 +178,13 @@ export function HistoryPage() {
                 const productPrice = record.productPrice ?? 0
                 const commissionRate = record.commissionRate ?? 0
                 const estimatedCommission = (productPrice * commissionRate) / 100
+                const hasCommissionRate =
+                  record.commissionRate != null && record.commissionRate > 0
                 const canShowCommission =
-                  record.status === 'WAIT_ORDER' ||
-                  record.status === 'DONE_ORDER' ||
-                  record.status === 'DONE'
+                  hasCommissionRate &&
+                  (record.status === 'WAIT_ORDER' ||
+                    record.status === 'DONE_ORDER' ||
+                    record.status === 'DONE')
                 const detailHref = `/detail${window.location.search}`
                 return (
                   <tr key={record.id ?? `${record.link}-${index}`}>

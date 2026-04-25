@@ -105,8 +105,13 @@ export function DetailPage() {
   const commissionRate = record?.commissionRate ?? 0
   const rate = commissionRate
   const affiliateMoney = (amount * rate) / 100
+  const hasCommissionRate =
+    record != null && record.commissionRate != null && record.commissionRate > 0
   const canShowCommission =
-    record?.status === 'WAIT_ORDER' || record?.status === 'DONE_ORDER' || record?.status === 'DONE'
+    hasCommissionRate &&
+    (record.status === 'WAIT_ORDER' ||
+      record.status === 'DONE_ORDER' ||
+      record.status === 'DONE')
   const statusLabelMap = {
     WAIT_LINK: 'Đang xử lý',
     DONE: 'Hoàn tất link',
